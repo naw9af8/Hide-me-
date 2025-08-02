@@ -1,4 +1,4 @@
-# Made by naw9af8 (Nawaf Altalhi)
+# Made by naw9af8 (Nawaf Altalhi) v1.0
 # صنع بواسطة نواف الطلحي
 # This code is a simple encryption/decryption tool that supports both English and Arabic languages.
 import os
@@ -122,4 +122,5 @@ def main():
         print(translations['decrypted_result'][lang] + result)
 
 if __name__ == "__main__":
+
     main()
