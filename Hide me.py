@@ -95,32 +95,54 @@ def main():
         'invalid_shift': {
             'en': "Key must be an integer!",
             'ar': "المفتاح يجب أن يكون عدداً صحيحاً!"
+        },
+        'continue_prompt': {
+            'en': "\nDo you want to perform another operation? (y/n): ",
+            'ar': "\nهل تريد إجراء عملية أخرى؟ (y/n): "
+        },
+        'another_operation': {
+            'en': "\nStarting a new operation...",
+            'ar': "\nبدء عملية جديدة..."
+        },
+        'goodbye': {
+            'en': "\nGoodbye!",
+            'ar': "\nمع السلامة!"
         }
     }
 
-    # Display menu
-    print(translations['menu'][lang])
-    choice = input(translations['choice_prompt'][lang])
-    
-    if choice not in ['1', '2']:
-        print(translations['invalid_choice'][lang])
-        return
-    
-    text = input(translations['text_prompt'][lang])
-    
-    try:
-        shift = int(input(translations['shift_prompt'][lang]))
-    except ValueError:
-        print(translations['invalid_shift'][lang])
-        return
+    while True:
+        # Display menu
+        print(translations['menu'][lang])
+        choice = input(translations['choice_prompt'][lang])
+        
+        if choice not in ['1', '2']:
+            print(translations['invalid_choice'][lang])
+            continue
+        
+        text = input(translations['text_prompt'][lang])
+        
+        try:
+            shift = int(input(translations['shift_prompt'][lang]))
+        except ValueError:
+            print(translations['invalid_shift'][lang])
+            continue
 
-    if choice == '1':
-        result = encrypt(text, shift, lang)
-        print(translations['encrypted_result'][lang] + result)
-    else:
-        result = decrypt(text, shift, lang)
-        print(translations['decrypted_result'][lang] + result)
+        if choice == '1':
+            result = encrypt(text, shift, lang)
+            print(translations['encrypted_result'][lang] + result)
+        else:
+            result = decrypt(text, shift, lang)
+            print(translations['decrypted_result'][lang] + result)
+        
+        # Ask if user wants to continue
+        cont = input(translations['continue_prompt'][lang]).strip().lower()
+        if lang == 'ar':
+            cont = 'ن' if cont == 'n' else 'y' if cont == 'y' else cont
+        if cont in ['n', 'لا', 'no']:
+            print(translations['goodbye'][lang])
+            break
+        else:
+            print(translations['another_operation'][lang])
 
 if __name__ == "__main__":
-
     main()
